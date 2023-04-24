@@ -7,15 +7,26 @@ import { container } from "./inversify.config";
 import { Logger } from './Logger';
 import { IContext } from "./IContext";
 import { Context } from './Context';
+import {Injector} from "./Injector";
+import {Injector1} from "./Injector1";
 
 
 function App() {
 
-  const context = container.get<IContext>("CONTEXT")
-  context.getLogContext("App Context");
+  /*const context = container.get<IContext>("CONTEXT")
+  context.setLogContext("App Context");
+
+  console.log(context.getLogContext())
 
   const logger = container.get<ILogger>("LOGGER")
-  logger.log("Hello World.")
+  logger.log("Hello World.") */
+
+  const context = new Context("");
+
+  Injector1.register('lcontext', "sema");
+
+  const logger = Injector.resolve<ILogger>(Logger);
+  logger.log("test");
 
 
   return (
